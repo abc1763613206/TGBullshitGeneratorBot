@@ -236,6 +236,8 @@ def echo_all(message):
 @bot.inline_handler(lambda query: True )
 def query_text(inline_query):
     qtext = inline_query.query
+    if qtext == "":
+        pass
     print(qtext)
     try:
         r = types.InlineQueryResultArticle('1', '普通玩法(600字)', types.InputTextMessageContent(Process(qtext,600)))
