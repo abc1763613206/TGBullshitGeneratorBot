@@ -195,7 +195,9 @@ bot = telebot.TeleBot(config.TOKEN)
 from telebot import apihelper
 from telebot import types
 
-apihelper.proxy = config.HTTP_PROXY
+
+if config.USE_PROXY:
+    apihelper.proxy = config.HTTP_PROXY
 #telebot.logger.setLevel(logging.DEBUG)
 
 @bot.message_handler(commands=['start','help'])
@@ -238,7 +240,7 @@ def main_loop():
 
 if __name__ == '__main__':
     try:
-        print("Info:准备处理消息")
+        print("Info: 准备处理消息")
         main_loop()
     except KeyboardInterrupt:
         print('\nExiting by user request.\n')
