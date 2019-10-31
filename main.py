@@ -244,7 +244,7 @@ def query_text(inline_query):
         r = types.InlineQueryResultArticle('1', '普通玩法(600字)', types.InputTextMessageContent(Process(qtext,600)))
         r2 = types.InlineQueryResultArticle('2', '加强玩法(1000字)', types.InputTextMessageContent(Process(qtext,1000)))
         r3 = types.InlineQueryResultArticle('3', '再多来些(2000字)', types.InputTextMessageContent(Process(qtext,2000)))
-        bot.answer_inline_query(inline_query.id, [r, r2, r3])
+        bot.answer_inline_query(inline_query.id, [r0, r, r2, r3])
     except Exception as e:
         print(e)
 
