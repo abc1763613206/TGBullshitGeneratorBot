@@ -1,6 +1,10 @@
 # TGBullshitGeneratorBot
 "狗屁不通文章生成器" (https://github.com/menzi11/BullshitGenerator) 的 Telegram Bot 移植版
 
+## Demo
+https://t.me/bullshitsaysbot
+
+
 ## 如何使用
 
 ```
