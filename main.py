@@ -240,6 +240,7 @@ def query_text(inline_query):
         pass
     print(qtext)
     try:
+        r0 = types.InlineQueryResultArticle('0', '小作文(200字)', types.InputTextMessageContent(Process(qtext,200)))
         r = types.InlineQueryResultArticle('1', '普通玩法(600字)', types.InputTextMessageContent(Process(qtext,600)))
         r2 = types.InlineQueryResultArticle('2', '加强玩法(1000字)', types.InputTextMessageContent(Process(qtext,1000)))
         r3 = types.InlineQueryResultArticle('3', '再多来些(2000字)', types.InputTextMessageContent(Process(qtext,2000)))
