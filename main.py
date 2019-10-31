@@ -235,22 +235,24 @@ if config.USE_PROXY:
     apihelper.proxy = config.HTTP_PROXY
 #telebot.logger.setLevel(logging.DEBUG)
 
+logging.basicConfig(level=logging.INFO)
+
 @bot.message_handler(commands=['start','help'])
 def send_welcome(message):
     bot.reply_to(message,"狗屁不通生成器(https://github.com/menzi11/BullshitGenerator) 的 Telegram 移植版本，如有疑问请 @abc1763613206")
 
 @bot.message_handler(func=lambda m: True)
 def echo_all(message):
-    print(message.text)
+    logging.info(message.text)
     bot.reply_to(message, Process(message.text,1000))
 
 #@bot.inline_handler(lambda query: SetQText(query.query) )
-@bot.inline_handler(lambda query: True )
+@bot.inline_handler(lambda query: query.query != "" )
 def query_text(inline_query):
     qtext = inline_query.query
     if qtext == "":
         pass
-    print(qtext)
+    logging.info(qtext)
     try:
         r4 = types.InlineQueryResultArticle('4', '小作文(200字)', types.InputTextMessageContent(Process(qtext,200)))
         r = types.InlineQueryResultArticle('1', '普通玩法(600字)', types.InputTextMessageContent(Process(qtext,600)))
@@ -279,7 +281,7 @@ def main_loop():
 
 if __name__ == '__main__':
     try:
-        print("Info: 准备处理消息")
+        logging.info("准备处理信息")
         main_loop()
     except KeyboardInterrupt:
         print('\nExiting by user request.\n')
