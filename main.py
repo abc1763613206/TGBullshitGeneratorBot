@@ -177,6 +177,7 @@ def getquotes():
     return xx
 
 def getanother():
+
     xx = " "
     xx += "\r\n"
     xx += "    "
@@ -191,6 +192,10 @@ def Process(msg,maxlength):
     while ( len(tmp) < maxlength ) :
         branch = random.randint(0,100)
         if branch < 5:
+            while (tmp[-1] == '，'):
+                tmp += text[random.randint(0,len(text)-1)]
+            while (tmp[-1] == '：'):
+                tmp += text[random.randint(0,len(text)-1)]
             tmp += getanother()
         elif branch < 20 :
             tmp += getquotes()
