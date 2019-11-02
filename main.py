@@ -1,6 +1,7 @@
 import os,re
 import random
 import time
+import json
 
 from data import backsays
 from data import frontsays
@@ -91,7 +92,8 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda m: True)
 def echo_all(message):
-    logging.info("{0}({1}): {2}".format(message.from_user,message.date,message.text))
+    logging.info(message.text)
+    #print(type(message.from_user))
     if len(message.text) > 20:
         bot.reply_to(message,'你说的内容太长了！何不切分一下试试？')
         return
