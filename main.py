@@ -1,7 +1,7 @@
-import os,re
+import os
 import random
 import time
-import json
+#import traceback
 
 from data import backsays
 from data import frontsays
@@ -94,7 +94,7 @@ def send_welcome(message):
 def echo_all(message):
     logging.info(message.text)
     #print(type(message.from_user))
-    if len(message.text) > 20:
+    if len(message.text) > 15:
         bot.reply_to(message,'你说的内容太长了！何不切分一下试试？')
         return
     bot.reply_to(message, Process(message.text,1000))
@@ -106,14 +106,19 @@ def query_text(inline_query):
     if qtext == "":
         pass
     logging.info(qtext)
+    
     try:
-        r4 = types.InlineQueryResultArticle('4', '小作文(200字)', types.InputTextMessageContent(Process(qtext,200)))
-        r = types.InlineQueryResultArticle('1', '普通玩法(600字)', types.InputTextMessageContent(Process(qtext,600)))
-        r2 = types.InlineQueryResultArticle('2', '加强玩法(1000字)', types.InputTextMessageContent(Process(qtext,1000)))
-        r3 = types.InlineQueryResultArticle('3', '再多来些(2000字)', types.InputTextMessageContent(Process(qtext,2000)))
-        bot.answer_inline_query(inline_query.id, [r, r2, r3, r4], cache_time=1)
+        if len(qtext) > 15:
+            r5 = types.InlineQueryResultArticle('1','你要说的内容太长了！将直接发送原消息',types.InputTextMessageContent(str(qtext)))
+            bot.answer_inline_query(inline_query.id, [r5], cache_time=300)
+        else:
+            r4 = types.InlineQueryResultArticle('4', '小作文(200字)', types.InputTextMessageContent(Process(qtext,200)))
+            r = types.InlineQueryResultArticle('1', '普通玩法(600字)', types.InputTextMessageContent(Process(qtext,600)))
+            r2 = types.InlineQueryResultArticle('2', '加强玩法(1000字)', types.InputTextMessageContent(Process(qtext,1000)))
+            r3 = types.InlineQueryResultArticle('3', '再多来些(1500字)', types.InputTextMessageContent(Process(qtext,1500)))
+            bot.answer_inline_query(inline_query.id, [r, r2, r3, r4], cache_time=1)
     except Exception as e:
-        print(e)
+        logging.error(e)
 
 
 
@@ -139,3 +144,5 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('\nExiting by user request.\n')
         exit(0)
+    except Exception as e:
+        logging.error(e)
