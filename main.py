@@ -126,11 +126,14 @@ def send_welcome(message):
 @bot.message_handler(commands=['stat'])
 def send_stat(message):
     try:
+        global totalcount
+        totalcount += 1
         global chatcount
         chatcount += 1
         bot.reply_to(message,getstat(1))
     except Exception as e:
         logging.error(e)
+
 
 
 
