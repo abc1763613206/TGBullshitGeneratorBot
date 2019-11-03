@@ -301,4 +301,4 @@ frontsays = [
 
 
 def data_stat() :
-    logging.info("共有{}条语录，{}条套话，{}条前垫，{}条后垫".format(str(len(quotes)),str(len(text)),str(len(frontsays)),str(len(backsays))))
+    return ("当前版本共有{}条语录，{}条套话，{}条前垫，{}条后垫\n".format(str(len(quotes)),str(len(text)),str(len(frontsays)),str(len(backsays))))
