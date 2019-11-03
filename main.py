@@ -3,10 +3,7 @@ import random
 import time
 #import traceback
 
-from data import backsays
-from data import frontsays
-from data import quotes
-from data import text
+from data import *
 
 if not os.path.exists("config.py"):
     print("Error: 配置文件不存在，请检查是否正确配置！")
@@ -139,6 +136,7 @@ def main_loop():
 
 if __name__ == '__main__':
     try:
+        data_stat()
         logging.info("准备处理信息")
         main_loop()
     except KeyboardInterrupt:
