@@ -180,6 +180,15 @@ def query_text(inline_query):
         logging.error(e)
 
 
+@bot.inline_handler(lambda query: query.query == "")
+def query_text(inline_query):
+    try:
+        r1 = types.InlineQueryResultArticle('1', '查看当前统计(Beta)(不会即时更新)', types.InputTextMessageContent(getstat(0)))
+        r2 = types.InlineQueryResultArticle('2', '您正在使用 inline 模式，请输入内容以便生成', types.InputTextMessageContent('？'))
+        bot.answer_inline_query(inline_query.id, [r1, r2], cache_time=360)
+    except Exception as e:
+        logging.error(e)
+
 
 #@bot.inline_handler(lambda query: True)
 #def query_text(inline_query):
