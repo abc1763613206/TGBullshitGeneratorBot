@@ -1,8 +1,11 @@
 import os
+import sys
+import string
 import random
 import time
 import subprocess
-#import traceback
+import traceback
+from time import sleep
 
 from data import *
 
@@ -13,6 +16,14 @@ import config
 
 
 xx = ""
+
+def getReportID():
+    seed = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    sa = []
+    for i in range(8):
+        sa.append(random.choice(seed))
+    salt = ''.join(sa)
+    return salt
 
 
 totalcount=0
@@ -81,7 +92,7 @@ import telebot
 bot = telebot.TeleBot(config.TOKEN)
 from telebot import apihelper
 from telebot import types
-
+from telebot import util
 
 if config.USE_PROXY:
     apihelper.proxy = config.HTTP_PROXY
@@ -132,6 +143,7 @@ def send_stat(message):
         chatcount += 1
         bot.reply_to(message,getstat(1))
     except Exception as e:
+        traceback.print_exc()
         logging.error(e)
 
 
@@ -144,14 +156,31 @@ def echo_all(message):
         totalcount += 1
         global chatcount
         chatcount += 1
+        if message.content_type != 'text':
+            bot.reply_to(message,'抱歉，我还只支持文字！')
         logging.info(str('Chat::@{} ({} {}): {}'.format(message.from_user.username, message.from_user.first_name, message.from_user.last_name, message.text)))
+        #print(message.type)
+
         #print(type(message.from_user))
-        if len(message.text) > 15:
-            bot.reply_to(message,'你说的内容太长了！何不切分一下试试？')
-            return
-        bot.reply_to(message, Process(message.text,1000))
+        #if len(message.text) > 15:
+        #    bot.reply_to(message,'你说的内容太长了！何不切分一下试试？')
+        #    return
+        ret = Process(message.text, 1000)
+        if len(ret) >= 4500:
+            bot.reply_to(message, '您要说的内容实在太长了，将为您分段处理！')
+            splitted_ret = util.split_string(ret, 3000)
+            logging.info(str('Too long.Split into '+str(len(splitted_ret))+' parts'))
+            for sret in splitted_ret:
+                bot.reply_to(message, sret)
+                sleep(0.3)
+        else:
+            bot.reply_to(message,ret)
+
     except Exception as e:
-        logging.error(e)
+        rid = getReportID()
+        traceback.print_exc()
+        logging.error(str(rid + '::' +str(e)))
+        bot.send_message(message.from_user.id,'抱歉，我出现错误，识别ID为 '+rid+'\n\n信息如下：\n'+str(e)+'\n\n请将这条信息 Forward 给 @abc1763613206 中所列的用户 进行处理！')
 #@bot.inline_handler(lambda query: SetQText(query.query) )
 @bot.inline_handler(lambda query: query.query != "" )
 def query_text(inline_query):
@@ -166,7 +195,7 @@ def query_text(inline_query):
     
     try:
         if len(qtext) > 15:
-            r5 = types.InlineQueryResultArticle('1','你要说的内容太长了！将直接发送原消息',types.InputTextMessageContent(str(qtext)))
+            r5 = types.InlineQueryResultArticle('1','你要说的内容太长了！将直接发送原消息(小提示：私聊模式可以发送长消息哦！)',types.InputTextMessageContent(str(qtext)))
             r6 = types.InlineQueryResultArticle('2','查看当前统计(Beta)',types.InputTextMessageContent(getstat(0)))
             bot.answer_inline_query(inline_query.id, [r5, r6], cache_time=1)
         else:
@@ -177,7 +206,9 @@ def query_text(inline_query):
             r6 = types.InlineQueryResultArticle('5', '查看当前统计(Beta)', types.InputTextMessageContent(getstat(0)))
             bot.answer_inline_query(inline_query.id, [r4, r, r2, r3, r6], cache_time=1)
     except Exception as e:
-        logging.error(e)
+        rid = getReportID()
+        traceback.print_exc()
+        logging.error(str(rid + '::' + str(e)))
 
 
 @bot.inline_handler(lambda query: query.query == "")
@@ -187,7 +218,9 @@ def query_text(inline_query):
         r2 = types.InlineQueryResultArticle('2', '您正在使用 inline 模式，请输入内容以便生成', types.InputTextMessageContent('？'))
         bot.answer_inline_query(inline_query.id, [r1, r2], cache_time=360)
     except Exception as e:
-        logging.error(e)
+        rid = getReportID()
+        traceback.print_exc()
+        logging.error(str(rid + '::' + str(e)))
 
 
 #@bot.inline_handler(lambda query: True)
@@ -216,3 +249,4 @@ if __name__ == '__main__':
         exit(0)
     except Exception as e:
         logging.error(e)
+        traceback.print_exc()
