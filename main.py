@@ -267,6 +267,6 @@ if __name__ == '__main__':
         print('\nExiting by user request.\n')
         exit(0)
     except Exception as e:
-        logging.error(e)
+        rid = getReportID()
         traceback.print_exc()
         logging.error(str(rid + '::' + str(repr(e)) + '\n' + traceback.format_exc()))
