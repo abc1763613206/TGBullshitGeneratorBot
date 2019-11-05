@@ -144,7 +144,7 @@ def echo_all(message):
         totalcount += 1
         global chatcount
         chatcount += 1
-        logging.info("chat:"+message.text)
+        logging.info(str('Chat::@{} ({} {}): {}'.format(message.from_user.username, message.from_user.first_name, message.from_user.last_name, message.text)))
         #print(type(message.from_user))
         if len(message.text) > 15:
             bot.reply_to(message,'你说的内容太长了！何不切分一下试试？')
@@ -162,7 +162,7 @@ def query_text(inline_query):
     qtext = inline_query.query
     if qtext == "":
         pass
-    logging.info("inline:"+qtext)
+    logging.info(str('Inline:: @{} ({} {}): {}').format(inline_query.from_user.username, inline_query.from_user.first_name, inline_query.from_user.last_name, inline_query.query))
     
     try:
         if len(qtext) > 15:
