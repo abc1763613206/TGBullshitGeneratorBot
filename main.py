@@ -82,6 +82,8 @@ def Process(msg,maxlength):
     while ( len(tmp) < maxlength ) :
         branch = random.randint(0,100)
         if branch < 5:
+            if len(tmp) == 0 :
+                pass
             while (tmp[-1] == '，'):
                 tmp += next(nextsays)
             while (tmp[-1] == '：'):
