@@ -102,6 +102,11 @@ def Process(msg,maxlength):
     return tmp
 
 
+def xiaobMode(qtext,fr):
+    tmp = xiaobtext_front.replace("%ss",qtext) + fr + xiaobtext_end.replace("%ss",qtext)
+    return tmp
+
+
 
 import logging
 import telebot
@@ -218,12 +223,14 @@ def query_text(inline_query):
             r6 = types.InlineQueryResultArticle('2','查看当前统计(Beta)',types.InputTextMessageContent(getstat(0)))
             bot.answer_inline_query(inline_query.id, [r5, r6], cache_time=1)
         else:
-            r4 = types.InlineQueryResultArticle('1', '小作文(200字)', types.InputTextMessageContent(Process(qtext,200)))
-            r = types.InlineQueryResultArticle('2', '普通玩法(600字)', types.InputTextMessageContent(Process(qtext,600)))
-            r2 = types.InlineQueryResultArticle('3', '加强玩法(1000字)', types.InputTextMessageContent(Process(qtext,1000)))
-            r3 = types.InlineQueryResultArticle('4', '再多来些(1500字)', types.InputTextMessageContent(Process(qtext,1500)))
-            r6 = types.InlineQueryResultArticle('5', '查看当前统计(Beta)', types.InputTextMessageContent(getstat(0)))
-            bot.answer_inline_query(inline_query.id, [r4, r, r2, r3, r6], cache_time=1)
+            r1 = types.InlineQueryResultArticle('1', '小作文(200字)', types.InputTextMessageContent(Process(qtext,200)))
+            r2 = types.InlineQueryResultArticle('2', '普通玩法(600字)', types.InputTextMessageContent(Process(qtext,600)))
+            r3 = types.InlineQueryResultArticle('3', '加强玩法(1000字)', types.InputTextMessageContent(Process(qtext,1000)))
+            r4 = types.InlineQueryResultArticle('4', '再多来些(1500字)', types.InputTextMessageContent(Process(qtext,1500)))
+            r5 = types.InlineQueryResultArticle('5', '与小编联动(@xiaobbot)(400字)', types.InputTextMessageContent(xiaobMode(qtext,Process(qtext,200))))
+            r6 = types.InlineQueryResultArticle('6', '小编(@xiaobbot)想多说点(800字)', types.InputTextMessageContent(xiaobMode(qtext,Process(qtext,600))))
+            r7 = types.InlineQueryResultArticle('7', '查看当前统计(Beta)', types.InputTextMessageContent(getstat(0)))
+            bot.answer_inline_query(inline_query.id, [r1, r2, r3, r4, r5, r6, r7], cache_time=1)
     except Exception as e:
         rid = getReportID()
         traceback.print_exc()
@@ -270,3 +277,4 @@ if __name__ == '__main__':
         rid = getReportID()
         traceback.print_exc()
         logging.error(str(rid + '::' + str(repr(e)) + '\n' + traceback.format_exc()))
+

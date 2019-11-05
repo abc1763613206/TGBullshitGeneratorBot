@@ -304,7 +304,8 @@ frontsays = [
     "说过一句富有哲理的话",
 ]
 
-
+xiaobtext_front = "    %ss是什么意思？%ss是什么梗？%ss是谁？这个梗又是从何而来？为什么一瞬间就有好多人使用这个梗？为什么大家都在%ss？相信不少同学都很想了解这个梗，下面就让小编来为大家介绍一下%ss梗的详细内容。%ss是什么意思？%ss是什么梗？%ss是谁？这个梗又是从何而来？为什么一瞬间就有好多人使用这个梗？为什么大家都在%ss？相信不少同学都很想了解这个梗，下面就让小编来为大家介绍一下%ss梗的详细内容。    \n"
+xiaobtext_end = "    \n    以上就是%ss的全部内容，希望能够帮助到大家。"
 
 def data_stat() :
     return ("当前版本共有{}条语录，{}条套话，{}条前垫，{}条后垫\n".format(str(len(quotes)),str(len(text)),str(len(frontsays)),str(len(backsays))))
