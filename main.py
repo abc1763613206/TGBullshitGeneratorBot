@@ -79,16 +79,15 @@ def Process(msg,maxlength):
     global nextsays
     xx=msg
     tmp = str()
-    while ( len(tmp) < maxlength ) :
+    while ( len(tmp) < maxlength ):
         branch = random.randint(0,100)
         if branch < 5:
-            if len(tmp) == 0 :
-                pass
+            tmp += getanother()
             while (tmp[-1] == '，'):
                 tmp += next(nextsays)
             while (tmp[-1] == '：'):
                 tmp += next(nextsays)
-            tmp += getanother()
+
         elif branch < 20 :
             tmp += getquotes()
         else:
