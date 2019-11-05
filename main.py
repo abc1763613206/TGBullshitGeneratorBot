@@ -21,9 +21,14 @@ if not os.path.exists("data.py"):
     exit(0)
 from data import *
 
-if config.USE_SENTRY : # Bug Tracker
-    import sentry_sdk
-    sentry_sdk.init(config.SENTRY_LINK)
+
+try: # 向下兼容
+    if config.USE_SENTRY : # Bug Tracker
+        import sentry_sdk
+        sentry_sdk.init(config.SENTRY_LINK)
+except Exception as e:
+    ret = str(e)
+
 
 xx = ""
 

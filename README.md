@@ -14,6 +14,9 @@ pip install pyTelegramBotAPI requests # 代码为 Python 3.6+ 环境
 复制一份 `config.sample.py` 为 `config.py`，之后进行相关配置，如填入 Bot Token 。        
 如果您的 Bot 跑在网络封锁地区，请去下方自行配置代理。
 
+如果您的 Bot 想要接入 [Sentry](https://sentry.io/) 的 Bug 追踪服务，请参照配置文件自行配置。
+
+
 ## TODO
 
 - 更新更多的语句逻辑。
