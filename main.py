@@ -114,20 +114,22 @@ if config.USE_PROXY:
 #telebot.logger.setLevel(logging.DEBUG)
 
 logging.basicConfig(level=logging.INFO)
+try:
+    ghash = str(subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('utf-8'))
+    gtime = str(subprocess.check_output(['git', 'log', '--pretty=format:\"%cd\"', '-1']).decode('utf-8'))
+except Exception as e:
+    rid = getReportID()
+    traceback.print_exc()
+    logging.error(str(rid + '::' + str(repr(e)) + '\n' + traceback.format_exc()))
+
 
 def get_githash():
-    try:
-        ret = str(subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('utf-8'))
-    except Exception as e:
-        ret = str(e)
-    return ret
+    global ghash
+    return ghash
 
 def get_gittime():
-    try:
-        ret = str(subprocess.check_output(['git', 'log', '--pretty=format:\"%cd\"', '-1']).decode('utf-8'))
-    except Exception as e:
-        ret = str(e)
-    return ret
+    global gtime
+    return gtime
 
 def getstat(mode):
     global totalcount
