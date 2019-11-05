@@ -190,7 +190,7 @@ def echo_all(message):
             logging.info(str('Too long.Split into '+str(len(splitted_ret))+' parts'))
             for sret in splitted_ret:
                 bot.reply_to(message, sret)
-                sleep(0.3)
+                #sleep(0.3)
         else:
             bot.reply_to(message,ret)
 
