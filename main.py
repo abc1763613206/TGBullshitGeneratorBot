@@ -7,13 +7,23 @@ import subprocess
 import traceback
 from time import sleep
 
-from data import *
+
+
+
 
 if not os.path.exists("config.py"):
     print("Error: 配置文件不存在，请检查是否正确配置！")
     exit(0)
 import config
 
+if not os.path.exists("data.py"):
+    print("Error: 数据文件不存在，请检查是否正确配置！")
+    exit(0)
+from data import *
+
+if config.USE_SENTRY : # Bug Tracker
+    import sentry_sdk
+    sentry_sdk.init(config.SENTRY_LINK)
 
 xx = ""
 
@@ -179,8 +189,9 @@ def echo_all(message):
     except Exception as e:
         rid = getReportID()
         traceback.print_exc()
-        logging.error(str(rid + '::' +str(e)))
-        bot.send_message(message.from_user.id,'抱歉，我出现错误，识别ID为 '+rid+'\n\n信息如下：\n'+str(e)+'\n\n请将这条信息 Forward 给 @abc1763613206 中所列的用户 进行处理！')
+        logging.error(str(rid + '::' + str(repr(e)) + '\n' + traceback.format_exc()))
+        bot.send_message(message.from_user.id,'抱歉，我出现错误，识别ID为 '+rid+'\n\n信息如下：\n'+str(repr(e))+'\n\n请将这条信息 Forward 给 @abc1763613206 中所列的用户 进行处理！')
+
 #@bot.inline_handler(lambda query: SetQText(query.query) )
 @bot.inline_handler(lambda query: query.query != "" )
 def query_text(inline_query):
@@ -208,7 +219,7 @@ def query_text(inline_query):
     except Exception as e:
         rid = getReportID()
         traceback.print_exc()
-        logging.error(str(rid + '::' + str(e)))
+        logging.error(str(rid + '::' + str(repr(e)) + '\n' + traceback.format_exc()))
 
 
 @bot.inline_handler(lambda query: query.query == "")
@@ -220,7 +231,7 @@ def query_text(inline_query):
     except Exception as e:
         rid = getReportID()
         traceback.print_exc()
-        logging.error(str(rid + '::' + str(e)))
+        logging.error(str(rid + '::' + str(repr(e)) + '\n' + traceback.format_exc()))
 
 
 #@bot.inline_handler(lambda query: True)
@@ -250,3 +261,4 @@ if __name__ == '__main__':
     except Exception as e:
         logging.error(e)
         traceback.print_exc()
+        logging.error(str(rid + '::' + str(repr(e)) + '\n' + traceback.format_exc()))
