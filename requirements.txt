@@ -1,1 +1,2 @@
-pyTelegramBotAPI
+sentry_sdk==0.13.1
+pyTelegramBotAPI>=3.6.6

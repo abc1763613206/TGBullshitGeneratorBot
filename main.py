@@ -120,6 +120,8 @@ if config.USE_PROXY:
 #telebot.logger.setLevel(logging.DEBUG)
 
 logging.basicConfig(level=logging.INFO)
+
+
 try:
     ghash = str(subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('utf-8'))
     gtime = str(subprocess.check_output(['git', 'log', '--pretty=format:\"%cd\"', '-1']).decode('utf-8'))
