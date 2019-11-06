@@ -157,7 +157,7 @@ def getstat(mode):
 
 @bot.message_handler(commands=['start','help'])
 def send_welcome(message):
-    bot.reply_to(message,"狗屁不通生成器(https://github.com/menzi11/BullshitGenerator) 的 Telegram 移植版本，如有疑问请 @abc1763613206")
+    bot.reply_to(message,"狗屁不通生成器(https://github.com/menzi11/BullshitGenerator) 的 Telegram 移植版本，如有疑问请 @abc1763613206\n源码： https://github.com/abc1763613206/TGBullshitGeneratorBot")
 
 @bot.message_handler(commands=['stat'])
 def send_stat(message):
