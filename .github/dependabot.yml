@@ -1,0 +1,16 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: sentry-sdk
+    versions:
+    - 0.19.5
+    - 0.20.0
+    - 0.20.1
+    - 0.20.2
+    - 0.20.3
