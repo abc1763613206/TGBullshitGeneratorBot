@@ -1,4 +1,6 @@
 # TGBullshitGeneratorBot
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fabc1763613206%2FTGBullshitGeneratorBot.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fabc1763613206%2FTGBullshitGeneratorBot?ref=badge_shield)
+
 "狗屁不通文章生成器" (https://github.com/menzi11/BullshitGenerator) 的 Telegram Bot 移植版
 
 ## Demo
@@ -20,3 +22,7 @@ pip install pyTelegramBotAPI requests # 代码为 Python 3.6+ 环境
 ## TODO
 
 - 更新更多的语句逻辑。
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fabc1763613206%2FTGBullshitGeneratorBot.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fabc1763613206%2FTGBullshitGeneratorBot?ref=badge_large)
